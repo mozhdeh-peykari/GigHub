@@ -187,6 +187,10 @@
     <Compile Include="Migrations\202005031059196_genre-script.Designer.cs">
       <DependentUpon>202005031059196_genre-script.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005031434036_add-foreignkey-gig.cs" />
+    <Compile Include="Migrations\202005031434036_add-foreignkey-gig.Designer.cs">
+      <DependentUpon>202005031434036_add-foreignkey-gig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -278,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005031059196_genre-script.resx">
       <DependentUpon>202005031059196_genre-script.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005031434036_add-foreignkey-gig.resx">
+      <DependentUpon>202005031434036_add-foreignkey-gig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
