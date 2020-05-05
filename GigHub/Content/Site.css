@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 90px;
     padding-bottom: 20px;
 }
 
@@ -34,21 +34,22 @@ span.field-validation-error {
     border-color: #ff4342;
 }
 
-.navbar-inverse .navbar-brand {
-    color: #fff;
-}
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+    }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #fff;
-}
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
 
-.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    background-color: #d60f0f69;
-}
-.navbar-inverse .navbar-nav > .dropdown > a .caret {
-    border-top-color: #fff;
-    border-bottom-color: #fff;
-}
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        background-color: #d60f0f69;
+    }
+
+    .navbar-inverse .navbar-nav > .dropdown > a .caret {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+    }
 
 .navbar-brand {
     font-weight: 700;
@@ -91,9 +92,56 @@ body {
     font-size: 17px;
     border-radius: 9px
 }
+
 .form-control:focus {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
+/* Page Level */
 
+.gigs {
+    list-style:none;
+}
+
+.gigs > li {
+    position: relative;
+    margin-bottom:30px;
+}
+
+.gigs > li > .details {
+    position: absolute;
+    top: 0;
+    left: 80px;
+}
+
+.gigs > li > .details > .artist {
+    font-weight:bold;
+    display:block;
+}
+
+.gigs > li > .details > .genre{
+    font-size:15px;
+}
+
+.gigs > li > .date {
+    background-color: red;
+    color: #fff;
+    width: 60px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.gigs > li > .date > .month {
+    text-transform:uppercase;
+    font-size:14px;
+    font-weight:bold;
+    padding: 2px 6px;
+}
+
+.gigs > li > .date > .day {
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color:#f7f7f7;
+    color:#333;
+}
