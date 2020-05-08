@@ -1,0 +1,72 @@
+﻿@model GigHub.ViewModels.GigViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h1>
+    @Model.Heading
+</h1>
+<ul class="gigs voffset5">
+    @foreach (var g in Model.Gigs)
+    {
+        <li>
+            <div class="date">
+                <div class="month">
+                    @g.DateTime.ToString("MMM")
+                </div>
+                <div class="day">
+                    @g.DateTime.ToString("d ")
+                </div>
+            </div>
+            <div class="details">
+                <span class="artist">
+                    @g.Artist.Name
+                    @if (Model.ShowAction)
+                    {
+                        <button data-artist-id="@g.ArtistId" class="btn btn-link js-toggle-follow">Follow</button>
+                    }
+                </span>
+
+                <span class="genre">
+                    @g.Genre.Name
+                </span>
+                @if (Model.ShowAction)
+                {
+                    <button data-gig-id="@g.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                }
+            </div>
+        </li>
+    }
+</ul>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-toggle-attendance").click(function (e) {
+                debugger;
+                var button = $(e.target);
+                $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                    .done(function () {
+                        button
+                            .removeClass("btn-default")
+                            .addClass("btn-info")
+                            .text("Going");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
+            });
+
+            $(".js-toggle-follow").click(function (e) {
+                var button = $(e.target);
+                $.post("/api/followings", { followeeId: button.attr("data-artist-id") })
+                    .done(function () {
+                        button.text("Following");
+                    })
+                    .fail(function () {
+                        alert("Something failed in following!");
+                    });
+            });
+        });
+    </script>
+}
