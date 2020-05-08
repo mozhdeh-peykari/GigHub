@@ -1,12 +1,30 @@
-﻿using System;
+﻿using GigHub.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace GigHub.ViewModels
 {
     public class GigFormViewModel
     {
+        public int Id { get; set; }
+        public string Heading { get; set; }
+
+        public string Action
+        {
+            get
+            {
+                Expression<Func<GigsController, ActionResult>> create = (g => g.Create(this));
+                Expression<Func<GigsController, ActionResult>> update = (g => g.Update(this));
+
+                var action = (Id != 0) ? update : create;
+                var actionName = (action.Body as MethodCallExpression).Method.Name;
+
+                return actionName;
+            }
+        }
         [Required]
         public string Venue { get; set; }
         [Required]
