@@ -59,7 +59,7 @@ namespace GigHub.Controllers
             var gig = _context.Gigs.Single(g => g.Id == id && g.ArtistId == userId);
             var vm = new GigFormViewModel
             {
-                Heading="Edit a Gig",
+                Heading = "Edit a Gig",
                 Genres = _context.Genres.ToList(),
                 Id = gig.Id,
                 Date = gig.DateTime.ToString("d MMM yyyy"),
@@ -82,11 +82,12 @@ namespace GigHub.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs.Single(g => g.Id == vm.Id && g.ArtistId == userId);
 
-            gig.Venue = vm.Venue;
-            gig.DateTime = vm.GetDateTime();
-            gig.GenreId = vm.Genre;
+            var gig = _context.Gigs
+                .Include(g => g.Attendances.Select(a => a.Attendee))
+                .Single(g => g.Id == vm.Id && g.ArtistId == userId);
+
+            gig.Modify(vm.Venue, vm.GetDateTime(), vm.Genre);
 
             _context.SaveChanges();
 

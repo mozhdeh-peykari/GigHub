@@ -223,6 +223,10 @@
     <Compile Include="Migrations\202005081629019_add-iscanceled-gig.Designer.cs">
       <DependentUpon>202005081629019_add-iscanceled-gig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005181303452_fix-usernotification.cs" />
+    <Compile Include="Migrations\202005181303452_fix-usernotification.Designer.cs">
+      <DependentUpon>202005181303452_fix-usernotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -232,6 +236,9 @@
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\NotificationType.cs" />
+    <Compile Include="Models\UserNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
@@ -338,6 +345,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005081629019_add-iscanceled-gig.resx">
       <DependentUpon>202005081629019_add-iscanceled-gig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005181303452_fix-usernotification.resx">
+      <DependentUpon>202005181303452_fix-usernotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
