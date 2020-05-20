@@ -76,6 +76,17 @@ span.field-validation-error {
         border-bottom-color: #fff;
     }
 
+    .navbar-inverse .notifications {
+        position: relative;
+    }
+
+        .navbar-inverse .notifications .badge {
+            position: absolute;
+            top: 8px;
+            right: -1px;
+            background-color: #a80a0a;
+        }
+
 .navbar-brand {
     font-weight: 700;
 }
@@ -108,7 +119,7 @@ body {
 
 .form-control {
     font-size: 17px;
-    height:44px;
+    height: 44px;
     border-radius: 9px;
 }
 
@@ -140,25 +151,23 @@ body {
             left: 80px;
         }
 
-            .gigs > li > .details > .artist {
-                font-weight: bold;
-                display: block;
-            }
+        .gigs > li:hover > .details > .actions {
+            display: block;
+        }
 
-            .gigs > li > .details > .genre {
-                font-size: 15px;
-            }
-            
-            .gigs > li > .details > .actions
-            {
-                font-size:14px;
-                display:none;
-            }
+        .gigs > li > .details > .actions {
+            font-size: 14px;
+            display: none;
+        }
 
-            .gigs > li:hover > .details > .actions
-            {
-                display:block;
-            }
+        .gigs > li > .details > .artist {
+            font-weight: bold;
+            display: block;
+        }
+
+        .gigs > li > .details > .genre {
+            font-size: 15px;
+        }
 
         .gigs > li > .date {
             background-color: red;
