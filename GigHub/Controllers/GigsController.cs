@@ -126,5 +126,11 @@ namespace GigHub.Controllers
                 .ToList();
             return View(gigs);
         }
+
+        [Authorize]
+        public ActionResult Search(GigViewModel gigViewModel)
+        {
+            return RedirectToAction("Index", "Home", new { query = gigViewModel.SearchTerm });
+        }
     }
 }
