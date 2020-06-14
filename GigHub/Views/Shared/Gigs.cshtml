@@ -9,7 +9,7 @@
 {
     <div class="form-group">
         <div id="SearchGigs" class="input-group">
-            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder="Search by artist, genre or venue" })
+            @Html.TextBoxFor(m => m.SearchTerm, new { @class = "form-control", placeholder = "Search by artist, genre or venue" })
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-search"></i>
             </span>
@@ -31,7 +31,7 @@
             <div class="details">
                 <span class="artist">
                     <a href="@Url.Action("Details","Gigs", new { id = g.Id })">@g.Artist.Name</a>
-                    
+
                     @if (g.IsCanceled)
                     {
                         <span class="label label-warning">Canceled</span>
@@ -48,7 +48,12 @@
                 </span>
                 @if (Model.ShowAction && !g.IsCanceled)
                 {
-                    <button data-gig-id="@g.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Going?</button>
+                    <button data-gig-id="@g.Id"
+                            class="btn
+                            @(Model.Attendances.Contains(g.Id) ? "btn-info" : "btn-default")
+                            btn-sm pull-right js-toggle-attendance">
+                        Going?
+                    </button>
                 }
             </div>
         </li>
@@ -62,16 +67,34 @@
             $(".js-toggle-attendance").click(function (e) {
                 debugger;
                 var button = $(e.target);
-                $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
-                    .done(function () {
-                        button
-                            .removeClass("btn-default")
-                            .addClass("btn-info")
-                            .text("Going");
+                if (button.hasClass("btn-default")) {
+                    $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                        .done(function () {
+                            button
+                                .removeClass("btn-default")
+                                .addClass("btn-info")
+                                .text("Going");
+                        })
+                        .fail(function () {
+                            alert("Something failed!");
+                        });
+                }
+                else {
+                    $.ajax({
+                        url: "/api/attendances/" + button.attr("data-gig-id"),
+                        method: "DELETE"
                     })
-                    .fail(function () {
-                        alert("Something failed!");
-                    });
+                        .done(function () {
+                            button
+                                .removeClass("btn-info")
+                                .addClass("btn-default")
+                                .text("Going?");
+                        })
+                        .fail(function () {
+                            alert("Something failed!");
+                        });
+                }
+
             });
 
             $(".js-toggle-follow").click(function (e) {

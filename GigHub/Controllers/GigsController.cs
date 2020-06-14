@@ -106,11 +106,17 @@ namespace GigHub.Controllers
                 .Include(g => g.Genre)
                 .ToList();
 
+            var attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.GigId);
+
             var gigViewModel = new GigViewModel
             {
                 Gigs = gigs,
                 ShowAction = User.Identity.IsAuthenticated,
-                Heading = "Gigs I'm Going"
+                Heading = "Gigs I'm Going",
+                Attendances = attendances
             };
 
             return View("Gigs", gigViewModel);
@@ -143,7 +149,7 @@ namespace GigHub.Controllers
                 .Include(g => g.Genre)
                 //.Include(g => g.Attendances)
                 //.Include(g => g.Artist.Followers)
-                .SingleOrDefault(g=>g.Id == id);
+                .SingleOrDefault(g => g.Id == id);
 
             if (gig == null)
                 return HttpNotFound();
@@ -167,7 +173,7 @@ namespace GigHub.Controllers
                 gigDetailViewModel.IsFollowing = _context.Followings.Any(f => f.FolloweeId == gig.ArtistId && f.FollowerId == userId);
             }
 
-            
+
 
             return View("Details", gigDetailViewModel);
         }
