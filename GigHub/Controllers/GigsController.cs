@@ -132,5 +132,44 @@ namespace GigHub.Controllers
         {
             return RedirectToAction("Index", "Home", new { query = gigViewModel.SearchTerm });
         }
+
+        public ActionResult Details(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var gig = _context.Gigs
+                //.Where(g => g.Id == id)
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                //.Include(g => g.Attendances)
+                //.Include(g => g.Artist.Followers)
+                .SingleOrDefault(g=>g.Id == id);
+
+            if (gig == null)
+                return HttpNotFound();
+
+            var gigDetailViewModel = new GigDetailViewModel
+            {
+                Gig = gig
+            };
+
+            //var isAttending = false;
+            //if (gig.Attendances.Where(a=>a.AttendeeId == userId).Count() > 0)
+            //    isAttending = true;
+
+            //var isFollowing = false;
+            //if (gig.Artist.Followers.Where(f=>f.FollowerId == userId).Count() > 0)
+            //    isFollowing = true;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                gigDetailViewModel.IsAttending = _context.Attendances.Any(a => a.GigId == gig.Id && a.AttendeeId == userId);
+                gigDetailViewModel.IsFollowing = _context.Followings.Any(f => f.FolloweeId == gig.ArtistId && f.FollowerId == userId);
+            }
+
+            
+
+            return View("Details", gigDetailViewModel);
+        }
     }
 }
