@@ -16,7 +16,7 @@
         </div>
     </div>
 }
-<ul class="gigs voffset5">
+<ul id="gigs" class="gigs voffset5">
     @foreach (var g in Model.Gigs)
     {
         <li>
@@ -37,10 +37,10 @@
                         <span class="label label-warning">Canceled</span>
                     }
 
-                    @if (Model.ShowAction)
+                    @*@if (Model.ShowAction)
                     {
                         <button data-artist-id="@g.ArtistId" class="btn btn-link js-toggle-follow">Follow</button>
-                    }
+                    }*@
                 </span>
 
                 <span class="genre">
@@ -51,7 +51,7 @@
                     <button data-gig-id="@g.Id"
                             class="btn
                             @(Model.Attendances.Contains(g.Id) ? "btn-info" : "btn-default")
-                            btn-sm pull-right js-toggle-attendance">
+                            btn-sm js-toggle-attendance">
                         Going?
                     </button>
                 }
@@ -64,49 +64,9 @@
 {
     <script>
         $(document).ready(function () {
-            $(".js-toggle-attendance").click(function (e) {
-                debugger;
-                var button = $(e.target);
-                if (button.hasClass("btn-default")) {
-                    $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
-                        .done(function () {
-                            button
-                                .removeClass("btn-default")
-                                .addClass("btn-info")
-                                .text("Going");
-                        })
-                        .fail(function () {
-                            alert("Something failed!");
-                        });
-                }
-                else {
-                    $.ajax({
-                        url: "/api/attendances/" + button.attr("data-gig-id"),
-                        method: "DELETE"
-                    })
-                        .done(function () {
-                            button
-                                .removeClass("btn-info")
-                                .addClass("btn-default")
-                                .text("Going?");
-                        })
-                        .fail(function () {
-                            alert("Something failed!");
-                        });
-                }
 
-            });
+            GigsController.init($("#gigs"));
 
-            $(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-                $.post("/api/followings", { followeeId: button.attr("data-artist-id") })
-                    .done(function () {
-                        button.text("Following");
-                    })
-                    .fail(function () {
-                        alert("Something failed in following!");
-                    });
-            });
         });
     </script>
 }
